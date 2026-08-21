@@ -6,7 +6,7 @@ Teste técnico desenvolvido para a KORP, com foco na implementação de processo
 
 A aplicação foi desenvolvida para atender aos requisitos propostos no teste técnico, contemplando funcionalidades relacionadas ao processo de criação e faturamento de notas fiscais.
 
-O projeto foi estruturado utilizando uma arquitetura com front-end em Angular e back-end dividido em **dois microsserviços independentes** em C# com ASP.NET Core: o **EstoqueService**, responsável pelo controle de produtos e saldo, e o **FaturamentoService**, responsável pela gestão das notas fiscais. Os dois serviços se comunicam entre si via HTTP REST, com tratamento de falhas implementado através da biblioteca Polly (retry automático e circuit breaker), garantindo que o sistema se recupere de indisponibilidades temporárias e informe o usuário de forma clara quando isso ocorre.
+O projeto foi estruturado utilizando uma arquitetura com front-end em Angular e back-end dividido em **dois microsserviços independentes** em C# com ASP.NET Core: o **EstoqueService**, responsável pelo controle de produtos e saldo, e o **FaturamentoService**, responsável pela gestão das notas fiscais. Os dois serviços se comunicam entre si via HTTP REST, com tratamento de falhas implementado através da biblioteca Polly, garantindo que o sistema se recupere de indisponibilidades temporárias e informe o usuário de forma clara quando isso ocorre.
 
 Cada microsserviço possui seu próprio banco de dados, fisicamente separado, reforçando a independência entre os serviços.
 
