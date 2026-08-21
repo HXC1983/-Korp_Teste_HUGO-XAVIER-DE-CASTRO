@@ -1,0 +1,86 @@
+<section class="pagina">
+  <header class="cabecalho">
+    <h1>Produtos</h1>
+    <p class="subtitulo">Cadastro de produtos disponíveis para uso em notas fiscais.</p>
+  </header>
+
+  <form class="cartao formulario" [formGroup]="form" (ngSubmit)="salvar()">
+    <h2>Novo produto</h2>
+
+    <div class="campo">
+      <label for="codigo">Código</label>
+      <input id="codigo" type="text" formControlName="codigo" placeholder="Ex: PROD001" />
+      @if (form.controls.codigo.invalid && form.controls.codigo.touched) {
+        <span class="erro-campo">Informe um código (até 50 caracteres).</span>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="descricao">Descrição</label>
+      <input id="descricao" type="text" formControlName="descricao" placeholder="Ex: Parafuso M6" />
+      @if (form.controls.descricao.invalid && form.controls.descricao.touched) {
+        <span class="erro-campo">Informe uma descrição.</span>
+      }
+    </div>
+
+    <div class="campo">
+      <label for="saldo">Saldo inicial</label>
+      <input id="saldo" type="number" formControlName="saldo" min="0" />
+      @if (form.controls.saldo.invalid && form.controls.saldo.touched) {
+        <span class="erro-campo">Informe um saldo válido (0 ou mais).</span>
+      }
+    </div>
+
+    <button type="submit" [disabled]="salvando">
+      @if (salvando) {
+        <app-loading-spinner [size]="14" /> Salvando...
+      } @else {
+        Cadastrar produto
+      }
+    </button>
+
+    @if (mensagemSucesso) {
+      <p class="mensagem sucesso">{{ mensagemSucesso }}</p>
+    }
+    @if (mensagemErro) {
+      <p class="mensagem erro">{{ mensagemErro }}</p>
+    }
+  </form>
+
+  <div class="cartao">
+    <div class="lista-cabecalho">
+      <h2>Produtos cadastrados</h2>
+      <input
+        class="busca"
+        type="text"
+        [formControl]="filtroCtrl"
+        placeholder="Buscar por código ou descrição..."
+      />
+    </div>
+
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Descrição</th>
+          <th class="alinhar-direita">Saldo</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (produto of (produtosFiltrados$ | async); track produto.id) {
+          <tr>
+            <td>{{ produto.codigo }}</td>
+            <td>{{ produto.descricao }}</td>
+            <td class="alinhar-direita" [class.saldo-baixo]="produto.saldo === 0">
+              {{ produto.saldo }}
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="3" class="vazio">Nenhum produto encontrado.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

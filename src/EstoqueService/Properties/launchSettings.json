@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EstoqueService": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51650;http://localhost:51651"
+    }
+  }
+}

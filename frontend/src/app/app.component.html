@@ -1,0 +1,19 @@
+<div class="layout">
+  <nav class="barra-lateral">
+    <div class="marca">
+      <span class="marca-titulo">Korp</span>
+      <span class="marca-subtitulo">Notas Fiscais</span>
+    </div>
+
+    <a routerLink="/produtos" routerLinkActive="ativo" class="link-nav">
+      <span class="icone">📦</span> Produtos
+    </a>
+    <a routerLink="/notas-fiscais" routerLinkActive="ativo" class="link-nav">
+      <span class="icone">🧾</span> Notas Fiscais
+    </a>
+  </nav>
+
+  <main class="conteudo">
+    <router-outlet />
+  </main>
+</div>

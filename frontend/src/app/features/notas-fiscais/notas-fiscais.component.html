@@ -1,0 +1,120 @@
+<section class="pagina">
+  <header class="cabecalho">
+    <h1>Notas Fiscais</h1>
+    <p class="subtitulo">Criação e impressão de notas fiscais, com débito automático de estoque.</p>
+  </header>
+
+  <form class="cartao formulario" [formGroup]="form" (ngSubmit)="salvar()">
+    <h2>Nova nota fiscal</h2>
+
+    <div formArrayName="itens" class="itens-lista">
+      @for (item of itens.controls; track item; let i = $index) {
+        <div class="item-linha" [formGroupName]="i">
+          <div class="campo">
+            <label [for]="'produto-' + i">Produto</label>
+            <select [id]="'produto-' + i" formControlName="codigoProduto">
+              <option value="" disabled>Selecione...</option>
+              @for (produto of produtosDisponiveis; track produto.id) {
+                <option [value]="produto.codigo">
+                  {{ produto.codigo }} — {{ produto.descricao }} (saldo: {{ produto.saldo }})
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="campo campo-quantidade">
+            <label [for]="'quantidade-' + i">Quantidade</label>
+            <input [id]="'quantidade-' + i" type="number" min="1" formControlName="quantidade" />
+          </div>
+
+          <button
+            type="button"
+            class="botao-remover"
+            (click)="removerItem(i)"
+            [disabled]="itens.length === 1"
+            title="Remover item"
+          >
+            ✕
+          </button>
+        </div>
+      }
+    </div>
+
+    <button type="button" class="botao-secundario" (click)="adicionarItem()">+ Adicionar item</button>
+
+    <div class="acoes-formulario">
+      <button type="submit" [disabled]="salvando">
+        @if (salvando) {
+          <app-loading-spinner [size]="14" /> Salvando...
+        } @else {
+          Criar nota fiscal
+        }
+      </button>
+    </div>
+
+    @if (mensagemSucesso) {
+      <p class="mensagem sucesso">{{ mensagemSucesso }}</p>
+    }
+    @if (mensagemErro) {
+      <p class="mensagem erro">{{ mensagemErro }}</p>
+    }
+  </form>
+
+  <div class="cartao">
+    <h2>Notas emitidas</h2>
+
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Número</th>
+          <th>Status</th>
+          <th>Itens</th>
+          <th>Criada em</th>
+          <th class="alinhar-direita">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (nota of (notas$ | async); track nota.numero) {
+          <tr>
+            <td>{{ nota.numero }}</td>
+            <td>
+              <span
+                class="badge"
+                [class.badge-aberta]="nota.status === StatusNotaFiscal.Aberta"
+                [class.badge-fechada]="nota.status === StatusNotaFiscal.Fechada"
+              >
+                {{ nota.status === StatusNotaFiscal.Aberta ? 'Aberta' : 'Fechada' }}
+              </span>
+            </td>
+            <td>
+              <ul class="lista-itens">
+                @for (item of nota.itens; track item.codigoProduto) {
+                  <li>{{ item.codigoProduto }} × {{ item.quantidade }}</li>
+                }
+              </ul>
+            </td>
+            <td>{{ nota.dataCriacao | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td class="alinhar-direita">
+              <button
+                class="botao-imprimir"
+                [disabled]="nota.status !== StatusNotaFiscal.Aberta || isImprimindo(nota.numero)"
+                (click)="imprimir(nota)"
+                title="Imprimir nota (debita o estoque e fecha a nota)"
+              >
+                @if (isImprimindo(nota.numero)) {
+                  <app-loading-spinner [size]="14" /> Imprimindo...
+                } @else {
+                  🖨️ Imprimir
+                }
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5" class="vazio">Nenhuma nota fiscal emitida ainda.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

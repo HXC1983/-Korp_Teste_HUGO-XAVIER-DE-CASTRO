@@ -1,0 +1,147 @@
+.pagina {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.cabecalho h1 {
+  margin: 0;
+  font-size: 1.75rem;
+}
+
+.subtitulo {
+  color: var(--cor-texto-suave);
+  margin: 4px 0 0;
+}
+
+.cartao {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.formulario h2,
+.lista-cabecalho h2 {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+  max-width: 420px;
+}
+
+.campo label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--cor-texto-suave);
+}
+
+.campo input {
+  padding: 9px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.campo input:focus {
+  outline: 2px solid var(--cor-primaria);
+  outline-offset: 1px;
+}
+
+.erro-campo {
+  color: var(--cor-erro);
+  font-size: 0.8rem;
+}
+
+button[type='submit'] {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--cor-primaria);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button[type='submit']:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.mensagem {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+.mensagem.sucesso {
+  background: #e6f4ea;
+  color: #1e7a34;
+}
+
+.mensagem.erro {
+  background: #fdecea;
+  color: #b3261e;
+}
+
+.lista-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.busca {
+  padding: 8px 12px;
+  border: 1px solid var(--cor-borda);
+  border-radius: 6px;
+  min-width: 240px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.tabela th,
+.tabela td {
+  text-align: left;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--cor-borda);
+  font-size: 0.92rem;
+}
+
+.tabela th {
+  color: var(--cor-texto-suave);
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.alinhar-direita {
+  text-align: right;
+}
+
+.saldo-baixo {
+  color: var(--cor-erro);
+  font-weight: 600;
+}
+
+.vazio {
+  text-align: center;
+  color: var(--cor-texto-suave);
+  padding: 24px 0;
+}
