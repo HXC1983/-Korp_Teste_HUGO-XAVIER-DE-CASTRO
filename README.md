@@ -1,6 +1,7 @@
 # Korp_Teste Técnico
 
 Teste técnico desenvolvido para a KORP, com foco na implementação de processos de criação e faturamento de notas fiscais e aplicação de conceitos de desenvolvimento de software.
+**Desenvolvedor**: Hugo Xavier de Castro
 
 ## Sobre o teste
 
